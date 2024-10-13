@@ -1,0 +1,57 @@
+
+
+### 1
+
+[’a’,’b’,’c’]            :: [Char]
+(’a’,’b’,’c’)            :: (Char, Char, Char)
+[(False,’O’),(True,’1’)] :: [(Bool, Char)]
+([False,True],[’0’,’1’]) :: ([Bool], [Char])
+[tail, init, reverse]    :: [([a] -> [a])]
+
+
+### 2
+
+bools :: [Bool]
+bools = [True, False]
+ 
+nums :: [[Int]]
+nums = [[0..]]
+ 
+add :: Int -> Int -> Int -> Int
+add x y z = x + y + z
+ 
+copy :: a -> (a,a)
+copy n = (n, n)
+ 
+apply :: (a -> b) -> a -> b
+apply f a = (f a)
+
+
+### 3 / 4
+
+second     :: [a] -> a
+swap       :: (a, b) -> (b, a)
+pair       :: a -> b -> (a, b)
+double     :: Num a => a -> a
+
+-- faltou a constraint (Eq a => ...). o correto seria:
+-- Eq a => [a] -> Bool
+palindrome :: [a] -> Bool  
+
+twice      :: (a -> a) -> a -> a
+
+
+### 5
+
+declarar que o tipo de uma função passada como argumento é instância de uma classe exigiria implementar os operadores de *igualdade* e *diferença* para funções daquele tipo. 
+
+1) nos casos em que é possível uma demonstração matemática geral ou por exaustão nos casos em que o conjunto-domínio é finito e é computacionalmente , mas que pelo que vimos em sala Haskell não é ainda uma ferramenta completa para demonstrações matemáticas;
+2) por exaustão no caso em que o conjunto-domínio é finito e é computacionalmente razoável
+
+
+
+1) Uma *class constraint* sobre o tipo de argumento de uma função indica que aquela implementação se aplica apenas aos argumentos dados que são instância dessa classe.
+
+Como Haskell não exige que a implementação de uma função/operador seja total nos tipos de seus argumentos, uma determinada função *f* pode não ser uma instância de **Eq** ainda que os operadores de igualdade e diferença estejam implementados para seu tipo. Isso pode acontecer, por xemplo, a implementação de (=) para um *user-defined type* T não abranger todos os seus cidadãos.
+
+ 
