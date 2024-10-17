@@ -1,18 +1,23 @@
 module Nat where
 
 import Distribution.Compat.CharParsing (Parsing (unexpected))
-import Prelude hiding (Num (..), gcd, max, min, mod, pred, (<), (>))
+import Prelude hiding (Num (..), gcd, max, min, mod, pred, quot, rem, (<), (<=), (>), (>=))
 
 data Nat = O | S Nat
   deriving (Eq, Show)
 
-o, so, sso, ssso, sssso, ssssso :: Nat
+o, so, sso, ssso, sssso, ssssso, sssssso, ssssssso, sssssssso, ssssssssso, sssssssssso :: Nat
 o = O
 so = S O
 sso = S (S O)
 ssso = S (S (S O))
 sssso = S (S (S (S O)))
 ssssso = S (S (S (S (S O))))
+sssssso = S (S (S (S (S (S O)))))
+ssssssso = S (S (S (S (S (S (S O))))))
+sssssssso = S (S (S (S (S (S (S (S O)))))))
+ssssssssso = S (S (S (S (S (S (S (S (S O))))))))
+sssssssssso = S (S (S (S (S (S (S (S (S (S O)))))))))
 
 -- item 1, 2
 
@@ -58,7 +63,10 @@ max (S n, S m) = S (max (n, m))
 
 -- auxiliares pras funçõe seguintes
 
--- natMinus :: Nat -> Nat -> Nat
+natMinus :: Nat -> Nat -> Nat
+natMinus n O = n
+natMinus O n = O
+natMinus (S m) (S n) = natMinus m n
 
 (>) :: Nat -> Nat -> Bool
 (>) (S _) O = True
@@ -76,21 +84,39 @@ max (S n, S m) = S (max (n, m))
     then False
     else (<) m n
 
+(<=) :: Nat -> Nat -> Bool
+(<=) (S m) (S n) = (<=) m n
+(<=) (S m) O = False
+(<=) _ _ = True
+
+(>=) :: Nat -> Nat -> Bool
+(>=) (S m) (S n) = (>=) m n
+(>=) O (S n) = False
+(>=) _ _ = True
+
 -- fim funções auxiliares
 
 div :: Nat -> Nat -> (Nat, Nat)
 div _ O = error "division by zero"
-div O n = (O, n)
-div (S m) (S n)
-  | m == n = (S O, O)
-  | m > n =
-  | n > m = (O, m)
+div O m = (O, m)
+div n m = (quot (n, m), rem (n, m))
 
 quot :: (Nat, Nat) -> Nat
-quot = undefined
+quot (_, O) = error "division by zero"
+quot (O, _) = O
+quot
+  (n, m) =
+    if n >= m
+      then S (quot (natMinus n m, m))
+      else O
 
 rem :: (Nat, Nat) -> Nat
-rem = undefined
+rem (_, O) = error "division by zero"
+rem (O, _) = O
+rem (n, m) =
+  if n >= m
+    then rem (natMinus n m, m)
+    else n
 
 gcd :: (Nat, Nat) -> Nat
 gcd (m, O) = m
