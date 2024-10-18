@@ -94,6 +94,14 @@ natMinus (S m) (S n) = natMinus m n
 (>=) O (S n) = False
 (>=) _ _ = True
 
+mod :: Nat -> Nat -> Nat
+mod x O = error "bad operation: modular arithmetic mod 0"
+mod O _ = O
+mod x m =
+  if x >= m
+    then mod (natMinus x m) m
+    else x
+
 -- fim funções auxiliares
 
 div :: Nat -> Nat -> (Nat, Nat)
@@ -119,10 +127,9 @@ rem (n, m) =
     else n
 
 gcd :: (Nat, Nat) -> Nat
+gcd (O, O) = error "gcd of (O, O) is inifinity"
 gcd (m, O) = m
-gcd (m, n) = undefined -- gcd (n, mod m n)
+gcd (m, n) = gcd (n, mod m n)
 
---
-
-gcm :: (Nat, Nat) -> Nat
-gcm = undefined
+lcm :: (Nat, Nat) -> Nat
+lcm = undefined
