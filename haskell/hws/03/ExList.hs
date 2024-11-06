@@ -154,13 +154,13 @@ maximum (x:xs) =
 
 take :: Integral n => n -> [a] -> [a]
 take _ [] = []
-take n (x:xs) | n == 0 = []
-              | otherwise = x:(take (n - 1) xs)
+take 0 n = []
+take n (x:xs) = x:(take (n - 1) xs)
 
 drop :: Integral n => n -> [a] -> [a]
 drop _ [] =  []
-drop n (x:xs) | n == 0 = (x:xs)
-              | otherwise = drop (n - 1) xs
+drop 0 (x:xs) = x:xs
+drop n (x:xs) = drop (n - 1) xs
 
 takeWhile :: (a -> Bool) -> [a] -> [a]
 takeWhile _ [] = []

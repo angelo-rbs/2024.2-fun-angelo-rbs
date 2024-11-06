@@ -1,0 +1,22 @@
+#+title: 2024-10-23
+
+* Revisão
+
+map: (a -> b) -> (List a -> List b)
+map f [] = []
+map f (x:xs) = f x
+
+filter : (a -> Bool) -> (List a -> List a)
+filter p [] = []
+filter (x:xs) = ls xs' = filter p xs
+                in if px then x:xs'
+                         else xs'
+* Aula
+
+- Dúvida: qual a regra geral pra ordem dos argumentos na definição da função?
+
+R.: Set comprehensions são açúcar sintático para aplicações ed map e filters.
+
+** Fold
+
+**

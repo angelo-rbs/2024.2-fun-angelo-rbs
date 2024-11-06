@@ -1,0 +1,43 @@
+
+
+- take n xs ++ drop n xs = id
+
+take :: Nat -> [a] -> [a]
+take _ [] = []
+take O n = n
+take (S n) x:xs = x:(take n xs)
+
+
+drop :: Nat -> [a] -> [a]
+drop _ [] = []
+drop O n = []
+drop (S n) x:xs =
+
+(∀ n : a) [(∀ xs : [a]) [ take n xs ++ drop n xs = id]]
+
+Sejam n : a, xs : [a]
+
+Caso xs = []
+
+     take n xs ++ drop n xs
+   = take n [] ++ drop n []
+
+- take m . drop n = fromTo m n
+
+- take m . take n = take (m + n)
+
+- drop m . drop n = drop (m + n)
+
+- map g . map f = map (g . f)
+
+- sum . map double = (*2) . sum
+
+- sum . map sum  = (sum . concat)
+
+- sum . sort  = sum
+
+- map f . reverse = reverse . map f
+
+- concat . map concat  = (concat . concat)
+
+- filter p . map f = ?
